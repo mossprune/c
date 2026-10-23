@@ -1,19 +1,13 @@
-CC = cc
-CFLAGS = -Wall -Wextra -std=c99
-BIN_DIR = bin
-TARGET = $(BIN_DIR)/main
-SRC = main.c
+CFLAGS = -std=c99 -Wall -Wextra
 
-.PHONY: build run clean
+bin/main: main.c
+	@mkdir -p bin
+	cc $(CFLAGS) -o $@ $<
 
-build: $(TARGET)
-
-$(TARGET): $(SRC)
-	@mkdir -p $(BIN_DIR)
-	$(CC) $(CFLAGS) -o $(TARGET) $(SRC)
-
-run: build
-	./$(TARGET)
+run: bin/main
+	./bin/main
 
 clean:
-	rm -f $(TARGET)
+	rm -rf bin
+
+.PHONY: run clean
